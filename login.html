@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Style */
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('https://scontent.xx.fbcdn.net/v/t1.15752-9/462567771_1218092972786818_8219853682813431334_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=0024fc&_nc_ohc=XUc_KRrU498Q7kNvgEdlNTQ&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QHveFMvGYZYFrJ41dBKtiL1m_4UJxlTZTSfgZkoAYQAig&oe=6753FABB'); /* Replace with your image path */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Login Container */
+        .login-container {
+            background-color: rgb(249, 218, 223);
+            padding: 2rem;
+            border-radius: 16px; /* Rounded edges for container */
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Logo/Image Above Login Text */
+        .login-container img {
+            width: 80px; /* Adjust as needed */
+            margin-bottom: 1rem;
+        }
+
+        /* Heading Style */
+        .login-container h2 {
+            margin-bottom: 1.5rem;
+            color:purple; /* Light purple color */
+            font-size: 1.8rem;
+        }
+
+        /* Input Field Style - Pill Shape and Light Purple Outline */
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0 1rem;
+            border: 1px solid #b19cd9; /* Light purple border */
+            border-radius: 50px; /* Pill-shaped input */
+            padding-left: 1rem;
+            outline: none;
+        }
+
+        /* Flex Container for Remember Me and Forgot Password */
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Checkbox Style */
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-right: 0.3rem;
+        }
+
+        /* Forgot Password Style */
+        .forgot-password a {
+            color: purple; /* Light purple color */
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        /* Login Button Style */
+        .login-container button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color:purple; /* Light purple color */
+            color: white;
+            border: none;
+            border-radius: 50px; /* Pill-shaped button */
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Button Hover Effect */
+        .login-container button:hover {
+            background-color:purple; /* Slightly darker purple for hover effect */
+        }
+
+        /* Additional Text Style */
+        .login-container p {
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        /* Sign-up Link Style */
+        .login-container p a {
+            color:light rgb(223, 64, 223);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Small Image Above the Login Text -->
+        
+
+        <h2>Login</h2>
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <div class="login-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember Me</label>
+                </div>
+                <div class="forgot-password">
+                    <a href="#">Forgot Password?</a>
+                </div>
+            </div>
+
+            <button type="submit">Login</button>
+
+            <p>Don't have an account? <a href="#">Sign up here</a></p>
+        </form>
+    </div>
+</body>
+</html>

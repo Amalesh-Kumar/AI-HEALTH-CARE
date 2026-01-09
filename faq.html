@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare FAQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 0;
+        }
+
+        .faq-section {
+            margin-top: 50px;
+        }
+
+        .faq-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .faq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            cursor: pointer;
+            background-color: #2c3e50;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .faq-header:hover {
+            background-color: #4bc7db;
+        }
+
+        .faq-content {
+            padding: 20px;
+            background-color: #ecf0f1;
+            font-size: 16px;
+            color: #555;
+            display: none;
+        }
+
+        .faq-header .icon {
+            font-size: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .faq-header.active .icon {
+            transform: rotate(180deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .faq-header {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Frequently Asked Questions</h1>
+        <h2>Your Health Matters, We Have Answers</h2>
+
+        <div class="faq-section">
+            <div class="faq-item">
+                <div class="faq-header">
+                    <span>What is an AI healthcare platform?
+                    </span>
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="faq-content">
+                    <p>An AI healthcare platform uses advanced algorithms and machine learning models to assist in diagnosing, monitoring, and managing health conditions. It provides personalized insights and recommendations based on data, helping users make informed health decisions.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <span> How accurate is AI in diagnosing health conditions?
+                    </span>
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="faq-content">
+                    <p>AI in healthcare has achieved remarkable accuracy rates, often comparable to human experts in specific tasks like image analysis and pattern recognition. However, it is intended to assist healthcare professionals and should not replace medical consultations.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <span> Can AI replace my doctor?
+                    </span>
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="faq-content">
+                    <p>No, AI cannot replace your doctor. AI is a tool designed to support doctors by providing data-driven insights and helping with repetitive tasks. For a complete and personalized healthcare approach, it's essential to consult with a healthcare professional.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <span>Is my personal health data safe on your platform?
+                    </span>
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="faq-content">
+                    <p>Yes, we prioritize data privacy and security. All personal health information is encrypted and stored securely, following HIPAA and other global healthcare privacy regulations. We never share or sell your data without your consent.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+            <div class="faq-header">
+                <span>How can AI improve my healthcare experience?
+                </span>
+                <span class="icon">&#9660;</span>
+            </div>
+            <div class="faq-content">
+                <p>AI can provide personalized health insights, reminders, and lifestyle suggestions based on your health history. It also enables faster diagnostic support, improves accuracy, and offers 24/7 access to healthcare guidance.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+        <div class="faq-header">
+            <span>What types of health conditions can your AI help with?
+            </span>
+            <span class="icon">&#9660;</span>
+        </div>
+        <div class="faq-content">
+            <p>Our AI system can assist with a variety of health areas, including cardiovascular health, mental health, dermatology, chronic disease management, and general wellness tips. However, it’s designed to support and not substitute clinical diagnoses.</p>
+        </div>
+    </div>
+
+            
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <span>How do I get started using the AI healthcare services?
+                    </span>
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="faq-content">
+                    <p>You can start by signing up on our website. Once registered, complete a health profile, and the AI will begin generating personalized insights. You can also interact with specific features, like symptom checkers or health trackers, as needed.
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <span> What should I do if I receive a serious health warning from the AI?
+                    </span>
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="faq-content">
+                    <p>If the AI provides a serious health warning, it’s important to seek immediate medical attention from a healthcare provider. AI alerts are designed to raise awareness but should always be verified by a medical professional.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <span> Is AI suitable for managing mental health?</span>
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="faq-content">
+                    <p>Yes, AI can provide mental health support, such as stress tracking, mood monitoring, and mindfulness recommendations. While AI can support mental health care, it’s crucial to consult mental health professionals for a comprehensive treatment plan.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <span>What are the limitations of AI in healthcare?
+                    </span>
+                    <span class="icon">&#9660;</span>
+                </div>
+                <div class="faq-content">
+                    <p>AI relies on data and algorithms, meaning it may not capture unique individual health nuances. It works best with human oversight and is designed to support, not replace, professional medical care. For personalized advice, consulting with a healthcare provider is essential.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Accordion functionality
+        const faqHeaders = document.querySelectorAll('.faq-header');
+
+        faqHeaders.forEach(header => {
+            header.addEventListener('click', function () {
+                const content = this.nextElementSibling;
+
+                // Toggle the visibility of the content
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+
+                // Toggle active state on header
+                this.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

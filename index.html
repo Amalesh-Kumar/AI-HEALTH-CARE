@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Synapse - Revolutionizing Healthcare with AI</title>
+    <style>
+        /* Global Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f8ff, #e0ffff);
+            height: 100vh;
+            transition: background 0.5s ease-in-out;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        header, section {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #D1E7E1;
+            padding: 80px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+        }
+        .header-content {
+            flex: 1;
+            max-width: 600px;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        
+        }
+        header p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        header button {
+            background-color: #FF6D5A;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.4s ease-in-out;
+        }
+        header button:hover{
+            box-shadow: 0 0 25px #FF6D5A,
+                        0 0 50px #FF6D5A,
+                        0 0 100px #FF6D5A;
+        }
+
+
+        .header-image img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Navigation Styling */
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+        nav a {
+            font-size: 1rem;
+            color: black;
+            
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: 0.4s ease-in-out;
+        }
+        
+        nav a.faq {
+            background-color: #FF6D5A;
+            color: #fff;
+        }
+
+        /* About Section Styling */
+        .about {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .about h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .about p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 40px;
+        }
+        .about-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .about-item {
+            background-color:peachpuff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            text-align: center;
+        }
+        .about-item h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin: 10px 0;
+        }
+        .about-item p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Products Section Styling */
+        .products {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .products h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .products p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 40px;
+        }
+        .products-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product-item {
+            background-color:skyblue;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            text-align: center;
+        }
+        .product-item h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin: 10px 0;
+        }
+        .product-item p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+
+
+
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f8f0e7;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .text-section {
+            width: 50%;
+        }
+
+        .text-section h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2f2f2f;
+        }
+
+        .text-section p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .explore-btn {
+            background-color: #c8e6c9;
+            color: #333;
+            transition: 0.4s ease-in-out;
+        }
+        .explore-btn:hover{
+            box-shadow: 0 0 25px #c8e6c9,
+                        0 0 50px #c8e6c9,
+                        0 0 100px #c8e6c9;
+        }
+
+        .learn-btn {
+            background-color: #ff8a80;
+            color: #fff;
+            transition: 0.4s ease-in-out;
+        }
+        .learn-btn:hover{
+            box-shadow: 0 0 25px #FF6D5A,
+                        0 0 50px #FF6D5A,
+                        0 0 100px #FF6D5A;
+        }
+
+        .image-section {
+            width: 40%;
+            text-align: left;
+        }
+
+        /* Removed border-radius for rectangular images */
+        .image-section img {
+            width: 600px;
+        }
+
+        /* Specific styling for the larger last image */
+        .last-section .image-section img {
+            width: 100%; /* Makes the image take up the full width of its container */
+        }
+
+        footer {
+            background-color: #f8f0e7;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer .footer-container {
+            max-width: 1000px;
+            margin: auto;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        footer .footer-container div {
+            text-align: left;
+        }
+
+        footer h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            display: block;
+            color: #666;
+            font-size: 14px;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        footer a:hover {
+            color: #333;
+        }
+    
+    </style>
+</head>
+<body>
+
+
+
+
+    <!-- Navigation -->
+<nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#products">Products</a>
+    <a href="#contacts">Contacts</a>
+    <a href="login.html">Login</a>
+    <a href="faq.html"target="_main" class="faq">FAQ</a>
+</nav>
+
+<!-- Header Section -->
+<header>
+    <div class="header-content">
+        <h1>Revolutionizing Healthcare with AI</h1>
+        <p>Discover how AI is transforming the healthcare industry, empowering medical professionals and improving patient outcomes. Explore our cutting-edge solutions that leverage the power of artificial intelligence.</p>
+        <button>Learn More</button>
+    </div>
+    <div class="image">
+        <a href="https://web.whatsapp.com/aa7fb3fc-254a-4a69-a63d-00e629c3e9b0" target="_blank">
+            <img src="https://img.freepik.com/premium-photo/doctor-ai-artificial-intelligence-modern-medical-technology-iot-automation_83925-488.jpg" alt="Female Doctor" style="height: 500px; width: 450px; border-radius: 50%;">
+        </a>
+    </div>
+    
+</header>
+
+
+
+<!-- About Section -->
+<section class="about" id="about">
+    <h2>About Us</h2>
+    <p>Established in 2015, our AI-powered healthcare solutions have been widely recognized for their innovative approach and impactful results.</p>
+    <div class="about-items">
+        <div class="about-item">
+            <h3><a href="support.html"target="_main">Support</h3></a>
+            <p>Our support services are here to ensure you have access to the information, guidance, and assistance you need.with customer support 24/7</p>
+        </div>
+        <div class="about-item">
+            <h3><a href="#products">Our Services</h3></a>
+            <p>From predictive analytics to personalized treatment plans, we offer a comprehensive suite.</p>
+        </div>
+        <div class="about-item">
+            <h3><a href="doctor.html"target="_main">Our Expertise</h3></a>           <p>Our team of renowned experts in the fields of medicine, data science.</p>
+        </div>
+        <div class="about-item">
+            
+            <h3><a href="impact.html"target="_main">Our Impact</h3></a>
+            <p>Our AI-powered solutions have been instrumental in improving patient outcomes.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section -->
+<a href="Disease.html"target="_main>Hero</a>"
+<section class="products" id="products">
+    <h2><b>Multiple Disease Predictor</h2>
+    <p>Predict Your Symptoms and take action Prior</p>
+    <div class="products-items">
+        <div class="product-item">
+            <h3>Multiple Disease Predictor</h3>
+            <p>Our advanced AI algorithms analyze patient data, medical imaging, and laboratory results to provide accurate diagnostics.</p>
+        </div>
+    </div>
+
+</section>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f8f0e7;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .text-section {
+            width: 50%;
+        }
+
+        .text-section h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2f2f2f;
+        }
+
+        .text-section p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .explore-btn {
+            background-color: #c8e6c9;
+            color: #333;
+        }
+
+        .learn-btn {
+            background-color: #ff8a80;
+            color: #fff;
+        }
+
+        .image-section {
+            width: 40%;
+            text-align: left;
+        }
+
+        /* Removed border-radius for rectangular images */
+        .image-section img {
+            width: 600px;
+        }
+
+        /* Specific styling for the larger last image */
+        .last-section .image-section img {
+            width: 100%; /* Makes the image take up the full width of its container */
+        }
+
+        footer {
+            background-color: #f8f0e7;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer .footer-container {
+            max-width: 1000px;
+            margin: auto;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        footer .footer-container div {
+            text-align: left;
+        }
+
+        footer h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            display: block;
+            color: #666;
+            font-size: 14px;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        footer a:hover {
+            color: #333;
+        }
+    </style>
+
+
+    <!-- First Section -->
+    <!-- First Section -->
+    <section class="container">
+        <div class="text-section">
+            <h1>Transforming Healthcare with AI</h1>
+            <p>At the forefront of the AI revolution in healthcare, we are pioneers in developing groundbreaking technologies that harness the power of artificial intelligence to revolutionize the way medical care is delivered.</p>
+            <div class="buttons">
+                <a href="#" class="explore-btn">Explore Solutions</a>
+              
+            </div>
+        </div>
+        <div class="image-section">
+            <img src="https://wallpapers.com/images/hd/doctor-background-r1gu608z548qzytp.jpg"style="height: 300px; width: 800px; border-radius: 10%;" alt="Healthcare Professional">
+        </div>
+    </section>
+
+    <!-- Second Section with Larger Image Aligned to the Left -->
+    <section class="container last-section">
+        <div class="image-section">
+            <img src="https://plus.unsplash.com/premium_photo-1661580574627-9211124e5c3f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" style= "border-radius: 5%;" alt="Healthcare Professional">
+        </div>
+        <div class="text-section">
+            <h1>Empowering Healthcare with AI</h1>
+            <p>At the forefront of the AI revolution in healthcare, we are passionate about developing cutting-edge technologies that harness the power of artificial intelligence to improve patient outcomes and enhance operational efficiency.</p>
+            
+        </div>
+    </section>
+
+
+
+
+<script>
+    
+window.embeddedChatbotConfig = {
+chatbotId: "lgQVYMMr-qRzvhoKkUxCi",
+domain: "www.chatbase.co"
+}
+</script>
+<script
+src="https://www.chatbase.co/embed.min.js"
+chatbotId="lgQVYMMr-qRzvhoKkUxCi"
+domain="www.chatbase.co"
+defer>
+
+    </script>
+<!--to connect to chat gpt-->    
+    <script>
+        window.embeddedChatbotConfig = {
+            chatbotId: "lgQVYMMr-qRzvhoKkUxCi",
+          domain: "www.chatbase.co"
+        }
+      </script>
+      <script 
+        src="https://www.chatbase.co/embed.min.js"
+        chatbotId="lgQVYMMr-qRzvhoKkUxCi"
+        domain="www.chatbase.co"
+        defer>
+      </script>
+
+
+
+
+
+
+
+
+
+<!-- Chatbot CSS Styling -->
+
+
+    <!-- Footer -->
+    <footer>
+        <section class="Contacts" id="contacts"></section>
+        <div class="footer-container">
+            <div>
+                <h3>Resources</h3>
+                <a href="#">Blog</a>
+                <a href="#">Whitepaper</a>
+                <a href="#">Case Studies</a>
+                <a href="#">FAQs</a>
+            </div>
+            <div>
+                <h3>Company</h3>
+                
+                <a href="#">About Us</a>
+                <a href="profile.html"target="_main">Our Team</a>
+                <a href="#">Careers</a>
+                <a href="#">Partners</a>
+            </div>
+            <div>
+                <h3>Connect</h3>
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+        <p>&copy; 2024 Synapse, Inc. All rights reserved.</p>
+    </footer>
+
+
+  
+
+    <!--contacts-->
+    
+    <section class="text-gray-600 body-font relative">
+        <div class="absolute inset-0 bg-gray-300">
+            <iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map" scrolling="no" src="https://maps.google.com/maps?width=100%&height=600&hl=en&q=Bangalore,India&ie=UTF8&t=&z=14&iwloc=B&output=embed" style="filter: grayscale(1) contrast(1.2) opacity(0.4);"></iframe>
+        </div>
+        <div class="container px-5 py-24 mx-auto flex">
+          <div class="lg:w-1/3 md:w-1/2 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+            <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Feedback</h2>
+            <p class="leading-relaxed mb-5 text-gray-600"></p>
+            <div class="relative mb-4">
+              <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+              <input type="email" id="email" name="email" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            </div>
+            <div class="relative mb-4">
+              <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
+              <textarea id="message" name="message" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+            </div>
+            <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+            <p class="text-xs text-gray-500 mt-3">Chicharrones blog helvetica normcore iceland tousled brook viral artisan.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+    
+</body>
+</html>
