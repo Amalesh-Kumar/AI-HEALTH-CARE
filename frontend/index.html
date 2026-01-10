@@ -193,10 +193,45 @@
       <p class="text-gray-600 text-lg leading-relaxed mb-8">
         Achieve accurate diagnosis using patient data & state-of-the-art machine learning models trained on millions of medical records.
       </p>
+
+      <div class="grid grid-cols-2 gap-4 mb-6 text-left">
+
+  <label class="flex items-center gap-2">
+    <input type="checkbox" value="itching" class="symptom">
+    Itching
+  </label>
+
+  <label class="flex items-center gap-2">
+    <input type="checkbox" value="skin_rash" class="symptom">
+    Skin Rash
+  </label>
+
+  <label class="flex items-center gap-2">
+    <input type="checkbox" value="nodal_skin_eruptions" class="symptom">
+    Nodal Skin Eruptions
+  </label>
+
+  <label class="flex items-center gap-2">
+    <input type="checkbox" value="fatigue" class="symptom">
+    Fatigue
+  </label>
+
+  <label class="flex items-center gap-2">
+    <input type="checkbox" value="headache" class="symptom">
+    Headache
+  </label>
+
+</div>
+
       <button onclick="predictDisease()"
-  class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-2xl">
+  class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-2xl shadow-lg hover:scale-105 transition font-bold text-lg">
   Try Now →
 </button>
+
+<div id="resultBox"
+     class="mt-6 hidden p-6 rounded-2xl bg-green-100 text-green-900 font-semibold text-xl">
+</div>
+
 
     </div>
   </div>
@@ -267,6 +302,40 @@ async function sendMessage() {
     </div>
   </div>
 </footer>
+<script>
+async function predictDisease() {
+
+  // ✅ collect selected symptoms
+  const checked = document.querySelectorAll(".symptom:checked");
+  const symptoms = Array.from(checked).map(cb => cb.value);
+
+  if (symptoms.length === 0) {
+    alert("Please select at least one symptom");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://127.0.0.1:8000/predict/symptom", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ symptoms })
+    });
+
+    const data = await res.json();
+
+    const resultBox = document.getElementById("resultBox");
+    resultBox.classList.remove("hidden");
+    resultBox.innerHTML = `
+      🧬 <b>Predicted Disease:</b> ${data.predicted_disease}
+    `;
+
+  } catch (err) {
+    console.error(err);
+    alert("Backend error");
+  }
+}
+</script>
+
 
 
 
