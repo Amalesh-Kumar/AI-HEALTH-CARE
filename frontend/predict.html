@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Disease Prediction | Synapse</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
+
+<div class="bg-white p-10 rounded-3xl shadow-2xl max-w-xl w-full">
+  <h1 class="text-3xl font-bold mb-6 text-center text-purple-700">
+    🧬 Disease Prediction
+  </h1>
+
+  <label class="block mb-2 font-semibold">Enter symptoms (comma separated)</label>
+  <input id="symptomsInput"
+         type="text"
+         placeholder="itching, skin_rash, fatigue"
+         class="w-full p-4 border rounded-xl mb-4">
+
+  <button onclick="predictDisease()"
+          class="w-full bg-purple-600 text-white py-3 rounded-xl font-bold">
+    Predict Disease
+  </button>
+
+  <div id="output" class="mt-6 hidden bg-green-100 p-4 rounded-xl"></div>
+</div>
+
+<script>
+async function predictDisease() {
+  const input = document.getElementById("symptomsInput").value;
+  const symptoms = input.split(",").map(s => s.trim());
+
+  if (symptoms.length === 0 || symptoms[0] === "") {
+    alert("Please enter symptoms");
+    return;
+  }
+
+  const res = await fetch("http://127.0.0.1:8000/predict/symptom", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ symptoms })
+  });
+
+  const data = await res.json();
+
+  const output = document.getElementById("output");
+  output.classList.remove("hidden");
+  output.innerHTML = `
+    <b>Predicted Disease:</b> ${data.predicted_disease}
+  `;
+}
+</script>
+
+</body>
+</html>

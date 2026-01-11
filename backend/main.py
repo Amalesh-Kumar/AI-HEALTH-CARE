@@ -20,8 +20,9 @@ FRONTEND_DIR = os.path.join(BASE_DIR, "..", "frontend")
 
 app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
-@app.get("/")
-def serve_index():
-    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+@app.get("/predict")
+def serve_predict():
+    return FileResponse(os.path.join(FRONTEND_DIR, "predict.html"))
+
 
 app.include_router(symptom_router)
