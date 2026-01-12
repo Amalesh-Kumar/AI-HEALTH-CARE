@@ -18,11 +18,18 @@ app.add_middleware(
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FRONTEND_DIR = os.path.join(BASE_DIR, "..", "frontend")
 
+# Serve static files (css, images if any)
 app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
+# ✅ HOME PAGE
+@app.get("/")
+def serve_index():
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+
+# ✅ PREDICTION PAGE
 @app.get("/predict")
 def serve_predict():
     return FileResponse(os.path.join(FRONTEND_DIR, "predict.html"))
 
-
+# API
 app.include_router(symptom_router)

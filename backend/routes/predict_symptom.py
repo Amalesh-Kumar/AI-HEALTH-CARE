@@ -7,23 +7,35 @@ import pandas as pd
 router = APIRouter()
 
 # -----------------------------
-# Request body schema
+# Request schema
 # -----------------------------
 class SymptomRequest(BaseModel):
     symptoms: list[str]
 
 # -----------------------------
-# Load model safely
+# Paths
 # -----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(
-    BASE_DIR, "..", "model", "symptom_disease", "model.pkl"
-)
+MODEL_DIR = os.path.join(BASE_DIR, "..", "model", "symptom_disease")
+DATASET_DIR = os.path.join(MODEL_DIR, "dataset")
 
-with open(MODEL_PATH, "rb") as f:
-    model, symptom_encoder, disease_encoder = pickle.load(f)
+# -----------------------------
+# Load ML model
+# -----------------------------
+with open(os.path.join(MODEL_DIR, "model.pkl"), "rb") as f:
+    model, all_symptoms, disease_encoder = pickle.load(f)
 
-symptom_columns = [f"Symptom_{i}" for i in range(1, 18)]
+# -----------------------------
+# Load medical datasets
+# -----------------------------
+desc_df = pd.read_csv(os.path.join(DATASET_DIR, "symptom_description.csv"))
+prec_df = pd.read_csv(os.path.join(DATASET_DIR, "symptom_precaution.csv"))
+sev_df = pd.read_csv(os.path.join(DATASET_DIR, "Symptom-severity.csv"))
+
+# Normalize
+desc_df["Disease"] = desc_df["Disease"].str.strip()
+prec_df["Disease"] = prec_df["Disease"].str.strip()
+sev_df["Symptom"] = sev_df["Symptom"].str.strip()
 
 # -----------------------------
 # Prediction endpoint
@@ -31,22 +43,49 @@ symptom_columns = [f"Symptom_{i}" for i in range(1, 18)]
 @router.post("/predict/symptom")
 def predict_symptom(request: SymptomRequest):
 
-    # Extract symptoms correctly
-    symptoms = request.symptoms
+    user_symptoms = [s.strip() for s in request.symptoms]
 
-    input_data = {col: "" for col in symptom_columns}
+    # --- Create multi-hot input ---
+    input_vector = pd.DataFrame(
+        [[1 if s in user_symptoms else 0 for s in all_symptoms]],
+        columns=all_symptoms
+    )
 
-    for i, symptom in enumerate(symptoms):
-        if i < 17:
-            input_data[f"Symptom_{i+1}"] = symptom
+    # --- Predict disease ---
+    pred = model.predict(input_vector)
+    disease = disease_encoder.inverse_transform(pred)[0]
 
-    df = pd.DataFrame([input_data])
+    # --- Fetch description ---
+    description = desc_df.loc[
+        desc_df["Disease"] == disease, "Description"
+    ].values
+    description = description[0] if len(description) else "Description not available"
 
-    df_encoded = symptom_encoder.transform(df)
+    # --- Fetch precautions ---
+    precautions_row = prec_df.loc[prec_df["Disease"] == disease]
+    precautions = []
+    if not precautions_row.empty:
+        precautions = precautions_row.iloc[0, 1:].dropna().tolist()
 
-    prediction = model.predict(df_encoded)
-    disease = disease_encoder.inverse_transform(prediction)[0]
+    # --- Severity calculation ---
+    severity_score = 0
+    for s in user_symptoms:
+        weight = sev_df.loc[sev_df["Symptom"] == s, "weight"]
+        if not weight.empty:
+            severity_score += int(weight.values[0])
 
+    if severity_score < 10:
+        risk = "Low"
+    elif severity_score < 20:
+        risk = "Medium"
+    else:
+        risk = "High"
+
+    # --- Final response ---
     return {
-        "predicted_disease": disease
+        "predicted_disease": disease,
+        "description": description,
+        "precautions": precautions,
+        "severity_score": severity_score,
+        "risk_level": risk
     }

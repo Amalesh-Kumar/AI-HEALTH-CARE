@@ -1,29 +1,47 @@
 import pandas as pd
 import pickle
-from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import LabelEncoder
+import os
 
-# Load dataset
-data = pd.read_csv("dataset/dataset.csv")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATASET_DIR = os.path.join(BASE_DIR, "dataset")
 
-# Split features and target
-X = data.drop("Disease", axis=1)
-y = data["Disease"]
+# Load datasets
+main_data = pd.read_csv(os.path.join(DATASET_DIR, "dataset.csv"))
+severity = pd.read_csv(os.path.join(DATASET_DIR, "Symptom-severity.csv"))
 
-# ✅ Correct encoder for multiple symptom columns
-symptom_encoder = OrdinalEncoder(handle_unknown="use_encoded_value", unknown_value=-1)
-X_encoded = symptom_encoder.fit_transform(X)
+# Get unique symptom list
+all_symptoms = severity["Symptom"].str.strip().unique().tolist()
+
+# Create binary feature matrix
+X = pd.DataFrame(0, index=main_data.index, columns=all_symptoms)
+
+for i in range(1, 18):
+    col = f"Symptom_{i}"
+    for idx, symptom in main_data[col].items():
+        if pd.notna(symptom):
+            symptom = symptom.strip()
+            if symptom in X.columns:
+                X.loc[idx, symptom] = 1
+
+# Target
+y = main_data["Disease"]
 
 # Encode disease labels
 disease_encoder = LabelEncoder()
 y_encoded = disease_encoder.fit_transform(y)
 
 # Train model
-model = RandomForestClassifier(n_estimators=200, random_state=42)
-model.fit(X_encoded, y_encoded)
+model = RandomForestClassifier(
+    n_estimators=300,
+    random_state=42
+)
+model.fit(X, y_encoded)
 
-# Save model + encoders
-with open("model.pkl", "wb") as f:
-    pickle.dump((model, symptom_encoder, disease_encoder), f)
+# Save model correctly (🔥 IMPORTANT)
+MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
+with open(MODEL_PATH, "wb") as f:
+    pickle.dump((model, all_symptoms, disease_encoder), f)
 
-print("✅ Symptom disease model trained successfully")
+print("✅ Multi-hot symptom model trained & saved successfully")
