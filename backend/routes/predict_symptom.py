@@ -25,6 +25,11 @@ DATASET_DIR = os.path.join(MODEL_DIR, "dataset")
 with open(os.path.join(MODEL_DIR, "model.pkl"), "rb") as f:
     model, all_symptoms, disease_encoder = pickle.load(f)
 
+# Normalize symptom list from training
+all_symptoms = [
+    s.strip().lower().replace(" ", "_") for s in all_symptoms
+]
+
 # -----------------------------
 # Load medical datasets
 # -----------------------------
@@ -32,10 +37,17 @@ desc_df = pd.read_csv(os.path.join(DATASET_DIR, "symptom_description.csv"))
 prec_df = pd.read_csv(os.path.join(DATASET_DIR, "symptom_precaution.csv"))
 sev_df = pd.read_csv(os.path.join(DATASET_DIR, "Symptom-severity.csv"))
 
-# Normalize
+# Normalize datasets
 desc_df["Disease"] = desc_df["Disease"].str.strip()
+
 prec_df["Disease"] = prec_df["Disease"].str.strip()
-sev_df["Symptom"] = sev_df["Symptom"].str.strip()
+
+sev_df["Symptom"] = (
+    sev_df["Symptom"]
+    .str.strip()
+    .str.lower()
+    .str.replace(" ", "_")
+)
 
 # -----------------------------
 # Prediction endpoint
@@ -43,36 +55,54 @@ sev_df["Symptom"] = sev_df["Symptom"].str.strip()
 @router.post("/predict/symptom")
 def predict_symptom(request: SymptomRequest):
 
-    user_symptoms = [s.strip() for s in request.symptoms]
+    # Normalize user symptoms
+    user_symptoms = [
+        s.strip().lower().replace(" ", "_")
+        for s in request.symptoms
+    ]
 
-    # --- Create multi-hot input ---
+    # -------------------------
+    # Multi-hot encoding
+    # -------------------------
     input_vector = pd.DataFrame(
         [[1 if s in user_symptoms else 0 for s in all_symptoms]],
         columns=all_symptoms
     )
 
-    # --- Predict disease ---
+    # -------------------------
+    # Predict disease
+    # -------------------------
     pred = model.predict(input_vector)
     disease = disease_encoder.inverse_transform(pred)[0]
 
-    # --- Fetch description ---
-    description = desc_df.loc[
+    # -------------------------
+    # Fetch description
+    # -------------------------
+    description_row = desc_df.loc[
         desc_df["Disease"] == disease, "Description"
-    ].values
-    description = description[0] if len(description) else "Description not available"
+    ]
+    description = (
+        description_row.values[0]
+        if not description_row.empty
+        else "Description not available"
+    )
 
-    # --- Fetch precautions ---
-    precautions_row = prec_df.loc[prec_df["Disease"] == disease]
+    # -------------------------
+    # Fetch precautions
+    # -------------------------
     precautions = []
-    if not precautions_row.empty:
-        precautions = precautions_row.iloc[0, 1:].dropna().tolist()
+    prec_row = prec_df.loc[prec_df["Disease"] == disease]
+    if not prec_row.empty:
+        precautions = prec_row.iloc[0, 1:].dropna().tolist()
 
-    # --- Severity calculation ---
+    # -------------------------
+    # Severity calculation
+    # -------------------------
     severity_score = 0
     for s in user_symptoms:
-        weight = sev_df.loc[sev_df["Symptom"] == s, "weight"]
-        if not weight.empty:
-            severity_score += int(weight.values[0])
+        match = sev_df.loc[sev_df["Symptom"] == s, "weight"]
+        if not match.empty:
+            severity_score += int(match.values[0])
 
     if severity_score < 10:
         risk = "Low"
@@ -81,7 +111,9 @@ def predict_symptom(request: SymptomRequest):
     else:
         risk = "High"
 
-    # --- Final response ---
+    # -------------------------
+    # Final response
+    # -------------------------
     return {
         "predicted_disease": disease,
         "description": description,
